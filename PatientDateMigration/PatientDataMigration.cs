@@ -88,6 +88,7 @@ internal class PatientDataMigration
 
                 var newAddressCreateResult = Domain.Entities.Address.Create(
                     address.Address,
+                    address.Address,
                     address.Street,
                     address.City,
                     address.State,
@@ -127,7 +128,8 @@ internal class PatientDataMigration
                         (long)newPatientFacilityId,
                         patient.PatientResidential != null && patient.PatientResidential.WingId != null ? patient.PatientResidential.WingId.ToString() : null,
                         patient.PatientResidential != null && !string.IsNullOrEmpty(patient.PatientResidential.Room) ? patient.PatientResidential.Room : null,
-                        patient.NurseIdRef != null ? patient.NurseIdRef.ToString():null
+                        patient.NurseIdRef != null ? patient.NurseIdRef.ToString():null,
+                        LocationOfService.Facility//todo is this correct?
                     );
                 if (facilityCreateResult.IsFailure)
                     throw new Exception(facilityCreateResult.Error);
